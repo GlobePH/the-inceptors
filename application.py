@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import sqlite3
 import requests
 import json
@@ -69,7 +69,7 @@ def esprequestproducer():
 									DESC LIMIT 1""")			
 					time_rows = c.fetchall()
 					time_row = time_rows[0]
-					if round(float(time_row[0])) > .1:
+					if round(float(time_row[0])) > 2:
 						c.execute(insert_stmt, values)
 					c.execute("""SELECT esp_id,
 									switch
@@ -87,6 +87,7 @@ def esprequestproducer():
 @app.route('/esprequestconsumer', methods=['GET', 'POST'])
 def esprequestconsumer():
 		if request.method == 'GET':
+			
 		    return 'Please use POST request only'
 		elif request.method == 'POST':
 			"""
@@ -170,11 +171,28 @@ def esprequestconsumer():
 						"branch4": row[4],
 					}
 					return jsonify(json_response)
-					
+
+@app.route('/buy', methods=['GET', 'POST'])
+def buy():
+		if request.method == 'GET':
+			with sqlite3.connect('inteliqas.db') as conn:
+				c = conn.cursor()
+				c.execute("""UPDATE producer_table 
+				SET switch = 1
+				WHERE timestamp = (SELECT timestamp
+				FROM producer_table 
+				ORDER BY timestamp 
+				DESC LIMIT 1)
+				""")
+			# return redirect(url_for("rnrequest"))
+			return 'OK'
+		elif request.method == 'POST':
+			return "OK"
+			
 @app.route('/rnrequest', methods=['GET', 'POST'])
 def rnrequest():
 		if request.method == 'GET':
-		    return 'Please use POST request only'
+			return 'OK'
 		elif request.method == 'POST':
 			"""
 			 {
@@ -239,6 +257,7 @@ def rnrequest():
 					# 			branch3,
 					# 			branch4
 					# 			))
+
 				c.execute("""SELECT *
 							FROM producer_table 
 							ORDER BY timestamp 
