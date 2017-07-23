@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+       
+        <div class="page-header text-center">
+          <h1>Inteliqas Dashboard</h1>
+        </div>
+            <div class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-body">Producer
+                  <table class="table table-responsive">
+                    <thead> 
+                      <tr>
+                        <th>Type</th>
+                        <th>Voltge</th>
+                        <th>Current</th>
+                        <th>Power</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Produced</td>
+                        <td>{{voltage_distribution}}</td>
+                        <td>{{current_distribution}}</td>
+                        <td>{{power_distribution}}</td>
+                      </tr>
+                      <tr>
+                        <td>Distribution</td>
+                        <td>{{voltage_consumption}}</td>
+                        <td>{{current_consumption}}</td>
+                        <td>{{power_consumption}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">Consumer
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Voltge</th>
+                        <th>Current</th>
+                        <th>Power</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Consumption</td>
+                        <td>{{voltage_consumption_c}}</td>
+                        <td>{{current_consumption_c}}</td>
+                        <td>{{power_consumption_c}}</td>
+                        <td>
+                          <div class="form-inline">
+                            <!-- Trigger the modal with a button -->
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Buy Energy</button></button>
+                            
+                            <!-- Modal -->
+                            <div id="myModal" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                            
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <!--<div class="modal-header">-->
+                                  <!--  <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                    <!--<h4 class="modal-title"></h4>-->
+                                  <!--</div>-->
+                                  <div class="modal-body">
+                                    <p>Transaction Successful.</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                            
+                              </div>
+                            </div>
+                          </div>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          
+        </div>
+    </div>
+{% endblock %}
